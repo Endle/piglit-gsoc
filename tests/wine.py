@@ -39,16 +39,18 @@ class WineTest(Test):
         super(WineTest, self).interpret_result()
 
         print( "Got return code: " + str(self.result.returncode) )
-        self.result.result = 'pass'
-        #if self.result.returncode == 0:
-            #self.result.result = 'pass'
+        #self.result.result = 'pass'
+        if self.result.returncode == 0:
+            self.result.result = 'pass'
         #elif self.result.returncode == 77:
             #self.result.result = 'skip'
         #elif self.result.returncode == 78:
             #self.result.result = 'timeout'
-        #else:
-            #self.result.result = 'fail'
+        else:
+            self.result.result = 'fail'
+
+WINE_LOG_FILE = "/dev/shm/log"
 
 profile.test_list["mesa-wine"] = \
-        WineTest([os.path.join(WINE_ROOT, "mesa-wine")])
+        WineTest([os.path.join(WINE_ROOT, "mesa-wine"), WINE_ROOT, WINE_LOG_FILE])
 
